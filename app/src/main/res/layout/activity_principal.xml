@@ -8,28 +8,35 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.david.taller1.Principal">
+    tools:context="com.example.david.taller1.Principal"
+    android:background="@color/background">
 
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list_view_calls"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_weight="1"
+        android:background="@color/background" >
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_tarea"
-        android:layout_below="@+id/list_view_calls"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/txt_tarea" />
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button_txt"
         android:text="Agregar Tarea"
         android:onClick="agregarTarea"
-        android:layout_alignBaseline="@+id/txt_tarea"
-        android:layout_alignBottom="@+id/txt_tarea"
-        android:layout_alignEnd="@+id/list_view_calls" />
+        android:background="@color/colorAccent"/>
+    </LinearLayout>
 </RelativeLayout>

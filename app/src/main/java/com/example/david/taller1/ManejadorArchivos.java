@@ -17,13 +17,17 @@ public class ManejadorArchivos {
     public final static String NOMBRE_ARCHIVO="archivo.txt";
     private static ManejadorArchivos instancia = new ManejadorArchivos();
     protected Context context;
+    private ManejadorArchivos(){}
 
     public static ManejadorArchivos getInstance(Context contexto){
+        if(instancia == null){
+            instancia = new ManejadorArchivos();
+        }
         instancia.context = contexto;
         return instancia;
     }
 
-    public static List<String> leerArchivo(){
+    public List<String> leerArchivo(){
         File directorio = instancia.context.getFilesDir();
         File archivoTareas = new File(directorio, NOMBRE_ARCHIVO);
         try{
@@ -33,7 +37,7 @@ public class ManejadorArchivos {
         }
     }
 
-    public static void escribirArchivo(List<String> tareas){
+    public void escribirArchivo(List<String> tareas){
         File directorio = instancia.context.getFilesDir();
         File archivoTareas = new File(directorio, NOMBRE_ARCHIVO);
         try{

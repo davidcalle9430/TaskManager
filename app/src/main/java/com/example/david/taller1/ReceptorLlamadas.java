@@ -11,26 +11,27 @@ import java.util.List;
 
 public class ReceptorLlamadas extends BroadcastReceiver {
 
-    protected String previousState = null;
-    public ReceptorLlamadas() {
-    }
+    public ReceptorLlamadas() {    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String estado = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
-        Log.wtf("App", "Entra al receiver " + estado);
-        if( ! estado.equals(previousState) && estado.equals(TelephonyManager.EXTRA_STATE_RINGING)){
-            previousState = estado;
+        String state = intent.getExtras().getString(TelephonyManager.EXTRA_STATE);
+        Log.wtf("Estado", state);
+        CallStateManager manager = CallStateManager.getInstance(state);
+        if( manager.stateChanged() && state.equals(TelephonyManager.EXTRA_STATE_RINGING)){
             String numeroTelefono = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
-            List<String> tareas = ManejadorArchivos.leerArchivo();
-            tareas.add("me llamó " + numeroTelefono);
+            List<String> tareas = ManejadorArchivos.getInstance(context).leerArchivo();
+            String mensaje = null;
+            if(manager.isLostCall()){
+                tareas.add(context.getResources().getString( R.string.llamada_perdida ) + " " + numeroTelefono);
+            }else {
+                tareas.add(context.getResources().getString( R.string.llamada )+ " " + numeroTelefono);
+            }
             ManejadorArchivos.getInstance(context).escribirArchivo(tareas);
-            Toast.makeText(context, "Llamada! de  " + numeroTelefono, Toast.LENGTH_SHORT).show();
             Intent newIntent = new Intent(context, Principal.class);
             newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(newIntent);
-        }else{
-            previousState = estado;
         }
+
     }
 }

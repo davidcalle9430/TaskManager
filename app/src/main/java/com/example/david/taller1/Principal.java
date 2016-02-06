@@ -1,23 +1,12 @@
 package com.example.david.taller1;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Principal extends AppCompatActivity {
@@ -30,7 +19,7 @@ public class Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        Log.wtf("APP", " On create ");
+        // Log.wtf("APP", " On create ");
         // Ojo!
         tareas = ManejadorArchivos.getInstance(this).leerArchivo();
         vistaLista = (ListView) findViewById(R.id.list_view_calls);
@@ -50,44 +39,47 @@ public class Principal extends AppCompatActivity {
 
 
     public void agregarTarea(View v){
-       EditText text =(EditText) findViewById(R.id.txt_tarea);
+        EditText text =(EditText) findViewById(R.id.txt_tarea);
         String tarea = text.getText().toString();
-        adapter.add(tarea);
+        if(text != null && !tarea.isEmpty()) {
+            adapter.add(tarea);
+        }
+        text.setText("");
         ManejadorArchivos.getInstance(this).escribirArchivo(tareas);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.wtf("App", "On pause");
+        //Log.wtf("App", "On pause");
     }
     @Override
     protected void onStart(){
         super.onStart();
-        Log.v("App", "On start");
+        //Log.v("App", "On start");
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.v("App", "On destroy");
+        //Log.v("App", "On destroy");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.wtf("App", " ON stop");
+        //Log.wtf("App", " ON stop");
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        Log.wtf("App", " on resume ");
+        //Log.wtf("App", " on resume ");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.wtf("App", "On restart");
+        //Log.wtf("App", "On restart");
         //tareas =  ManejadorArchivos.getInstance(this).leerArchivo();
         //adapter.notifyDataSetChanged();
     }
