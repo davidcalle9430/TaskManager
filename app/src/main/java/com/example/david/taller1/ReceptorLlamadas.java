@@ -22,11 +22,7 @@ public class ReceptorLlamadas extends BroadcastReceiver {
             String numeroTelefono = intent.getExtras().getString(TelephonyManager.EXTRA_INCOMING_NUMBER);
             List<String> tareas = ManejadorArchivos.getInstance(context).leerArchivo();
             String mensaje = null;
-            if(manager.isLostCall()){
-                tareas.add(context.getResources().getString( R.string.llamada_perdida ) + " " + numeroTelefono);
-            }else {
-                tareas.add(context.getResources().getString( R.string.llamada )+ " " + numeroTelefono);
-            }
+            tareas.add(context.getString(R.string.llamada)+ " " + numeroTelefono);
             ManejadorArchivos.getInstance(context).escribirArchivo(tareas);
             Intent newIntent = new Intent(context, Principal.class);
             newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
